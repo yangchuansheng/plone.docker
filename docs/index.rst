@@ -9,3 +9,4 @@ Plone and Docker
    custom
    for-development
    in-production
+   contributing
