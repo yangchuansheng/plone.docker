@@ -1,14 +1,14 @@
 [DOCS]
-bears = SpaceConsistencyBear, LineLengthBear, InvalidLinkBear
+bears = SpaceConsistencyBear, LineLengthBear
 use_spaces = True
 files = docs/**/*.rst
 ignore_length_regex = ^.*https?://
 max_line_length = 300
 
-#[MAKEFILE]
-#bears = LineLengthBear
-#files = Makefile
-#max_line_length = 150
+[LINKS]
+bears = InvalidLinkBear
+files = docs/**/*.rst
+timeout = 10
 
 #[WG]
 #bears = WriteGoodLintBear

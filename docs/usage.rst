@@ -33,7 +33,7 @@ otherwise add a new one.
 3. Scale
 --------
 In order to scale up and down the number of ZEO clients you'll need
-orchestration tools like `docker-compose <http://docs.docker.com/compose/install/>`_
+orchestration tools like `docker-compose <https://docs.docker.com/compose/install/>`_
 
 Bellow is a `docker-compose.yml` example with ZEO server and Plone
 instance configured as a ZEO client::
@@ -69,7 +69,7 @@ Scale the number of ZEO clients::
   $ docker-compose scale plone=4
 
 Now, open http://localhost:8080 in your workstation web browser. To see the
-HAProxy backends health, go to http://localhost:1936 Default user: `admin/admin`
+HAProxy backend health, go to http://localhost:1936 Default user: `admin/admin`
 
 4. Debug mode
 -------------
@@ -161,7 +161,7 @@ The Plone image uses several environment variable that allow to specify a more s
 * `PLONE_DEVELOP`, `DEVELOP` - Develop new or existing Plone add-ons (former `BUILDOUT_DEVELOP`)
 * `ZEO_ADDRESS` - This environment variable allows you to run Plone image as a ZEO client.
 * `ZEO_READ_ONLY` - Run Plone as a read-only ZEO client. Defaults to `off`.
-* `ZEO_CLIENT_READ_ONLY_FALLBACK` - A flag indicating whether a read-only remote storage should be acceptable as a fallback when no writable storages are available. Defaults to `false`.
+* `ZEO_CLIENT_READ_ONLY_FALLBACK` - A flag indicating whether a read-only remote storage should be acceptable as a fall-back when no writable storages are available. Defaults to `false`.
 * `ZEO_SHARED_BLOB_DIR` - Set this to on if the ZEO server and the instance have access to the same directory. Defaults to `off`.
 * `ZEO_STORAGE` - Set the storage number of the ZEO storage. Defaults to `1`.
 * `ZEO_CLIENT_CACHE_SIZE` - Set the size of the ZEO client cache. Defaults to `128MB`.
@@ -180,7 +180,7 @@ The Plone image uses several environment variable that allow to specify a more s
   themselves with the options available.
 
 The Docker documentation is a good starting point for understanding the different
-storage options and variations, and there are multiple blogs and forum postings
+storage options and variations, and there are multiple blog and forum postings
 that discuss and give advice in this area.
 
 8.1 Data volumes (suitable for production use)
@@ -190,9 +190,8 @@ Let Docker manage the storage of your database data
 `by writing the database files to disk on the host system using its own internal volume management <https://docs.docker.com/engine/tutorials/dockervolumes/>`_.
 The advantages of this approach is that you can deploy your Plone stack anywhere,
 without having to prepare hosts in advance or care about read/write permission
-or selinux policy rules. The downside is that the files may be hard to locate
-for tools and applications that run directly on the host system,
-i.e. outside containers.
+or SELinux `(Security-Enhanced Linux) <https://en.wikipedia.org/wiki/Security-Enhanced_Linux>`_ policy rules. The downside is that the files may be hard to locate
+for tools and applications that run directly on the host system, i.e. outside containers.
 
 * Use data volumes with Plone::
 
@@ -201,7 +200,7 @@ i.e. outside containers.
                  -p 8080:8080 \
              plone
 
-Or with `Docker Compose <https://docs.docker.com/compose>`_
+Or with `Docker Compose <https://docs.docker.com/compose/>`_
 
 * Add docker-compose.yml file::
 
