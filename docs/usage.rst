@@ -1,12 +1,14 @@
-Using this image
 ================
+Using This Image
+================
+
 There are two ways to use this image out-of-the-box:
 
 1. Standalone
 2. ZEO cluster
 
-1. Standalone
----------------
+Standalone
+----------
 ::
 
   $ docker run -p 8080:8080 plone
@@ -14,8 +16,8 @@ There are two ways to use this image out-of-the-box:
 Now, ask for http://localhost:8080/ in your workstation web browser,
 and add a Plone site.
 
-2. ZEO cluster
---------------
+ZEO Cluster
+-----------
 
 Start `ZEO` server::
 
@@ -30,8 +32,9 @@ Now, open http://localhost:8080/ in your workstation web browser. If you
 already have a Plone site within ZEO database, click on `View your Plone site`,
 otherwise add a new one.
 
-3. Scale
---------
+Scaling
+-------
+
 In order to scale up and down the number of ZEO clients you'll need
 orchestration tools like `docker-compose <https://docs.docker.com/compose/install/>`_
 
@@ -71,8 +74,9 @@ Scale the number of ZEO clients::
 Now, open http://localhost:8080 in your workstation web browser. To see the
 HAProxy backend health, go to http://localhost:1936 Default user: `admin/admin`
 
-4. Debug mode
--------------
+Debug Mode
+----------
+
 You can also start Plone in debug mode (fg) by running::
 
     $ docker run -p 8080:8080 plone fg
@@ -83,8 +87,8 @@ to run Plone inside container like::
     $ docker run -it -p 8080:8080 plone bash
       $ bin/instance fg
 
-5. Add-ons
-----------
+Add-ons
+-------
 You can easily test new or existing Plone add-ons by passing them via `PLONE_ADDONS`
 environment variable::
 
@@ -116,8 +120,9 @@ Running unit tests::
   Thus, we strongly recommend to use this only for testing or development purpose.
   For production use, create a new image as described in the next section.
 
-6. Extending this image
------------------------
+Extending This Image
+--------------------
+
 In order to run Plone with your custom theme or Plone Add-ons, you'll have to
 build another image based on this one. For this, you'll need to create two files,
 `site.cfg` which is a `zc.buildout <https://pypi.python.org/pypi/zc.buildout/2.5.0>`_
@@ -151,8 +156,8 @@ Run it::
 
 Test it at http://localhost:8080
 
-7. Environment Variables
-------------------------
+Environment Variables
+---------------------
 
 The Plone image uses several environment variable that allow to specify a more specific setup.
 
@@ -185,7 +190,7 @@ The Docker documentation is a good starting point for understanding the differen
 storage options and variations, and there are multiple blog and forum postings
 that discuss and give advice in this area.
 
-8.1 Data volumes (suitable for production use)
+Data Volumes (suitable for production use)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let Docker manage the storage of your database data
@@ -218,7 +223,7 @@ Or with `Docker Compose <https://docs.docker.com/compose/>`_
     $ docker-compose up
 
 
-8.2 Mount host directories as data volumes (suitable for development use)
+Mount host directories as data volumes (suitable for development use)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create data directories on the host system (outside the container) and

@@ -12,7 +12,7 @@ Plone On Docker
 
     Use Docker to run Plone.
 
-You can run Plone with `Docker <https://docker.com/>`_. This is a great way, for testing add-ons, continuous integration  and giving demos or trainings.
+You can run Plone with `Docker <https://www.docker.com/>`_. This is a great way, for testing add-ons, continuous integration  and giving demos or training sessions.
 
 If you have the knowledge, you can also use Docker for development or for running Plone in production.
 
