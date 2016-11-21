@@ -1,13 +1,13 @@
 [DOCS]
 bears = SpaceConsistencyBear, LineLengthBear
 use_spaces = True
-files = docs/**/*.rst
+files = docs/**/*.rst, README.md
 ignore_length_regex = ^.*https?://
 max_line_length = 300
 
 [LINKS]
 bears = InvalidLinkBear
-files = docs/**/*.rst
+files = docs/**/*.rst, README.md
 timeout = 10
 
 #[WG]

@@ -78,8 +78,8 @@ It is also available online at http://docs.plone.org/
 ## Contribute
 
 
-- Issue Tracker: http://github.com/plone/plone.docker/issues
-- Source Code: http://github.com/plone/plone.docker
+- Issue Tracker: https://github.com/plone/plone.docker/issues
+- Source Code: https://github.com/plone/plone.docker
 - Documentation: http://docs.plone.org/
 
 ## Support
