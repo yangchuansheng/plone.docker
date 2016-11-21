@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull quay.io/tiramisu/mr.docs
+  - docker pull coala/base
+
+script:
+  - docker run --rm -v "${PWD}/docs":/build/docs:rw -u "$(id -u)":"$(id -g)" quay.io/tiramisu/mr.docs testhtml
+  - docker run --rm -v "${PWD}/docs":/build/docs:rw -u "$(id -u)":"$(id -g)" quay.io/tiramisu/mr.docs spellcheck
+  - docker run --volume=$(pwd):/app --workdir=/app coala/base coala-ci LINKS
+  - docker run --volume=$(pwd):/app --workdir=/app coala/base coala-ci DOCS
+
