@@ -3,9 +3,9 @@ Using this image
 There are two ways to use this image out-of-the-box:
 
 1. Standalone
-2. ZEO client
+2. ZEO cluster
 
-1. Simple usage
+1. Standalone
 ---------------
 ::
 
@@ -170,8 +170,10 @@ The Plone image uses several environment variable that allow to specify a more s
 * `HEALTH_CHECK_INTERVAL` - Interval in seconds to check that the Zope application is still healthy. Defaults to `1` second.
 
 
-8. Where to Store Data
-----------------------
+.. _data_store:
+
+Where To Store Data
+--------------------
 
 .. note::
 
