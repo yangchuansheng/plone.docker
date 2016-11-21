@@ -1,0 +1,3 @@
+# Tell git to ignore certain files
+
+docs/_build/*
