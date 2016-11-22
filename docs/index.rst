@@ -7,6 +7,7 @@ Plone On Docker
    :maxdepth: 2
 
    usage
+   manage_data
    scaling
 
 .. admonition:: Description
@@ -34,4 +35,4 @@ If you have the knowledge, you can also use Docker for development or for runnin
 
     That means if your container fails or you start,stop or restart all data will be gone.
 
-    In order to avoid that please make sure sure that you read our docs about :ref:`data_store`.
+    In order to avoid that please make sure sure that you read our docs about :doc:`Data management <manage_data>`.
