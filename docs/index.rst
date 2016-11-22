@@ -7,6 +7,7 @@ Plone On Docker
    :maxdepth: 2
 
    usage
+   scaling
 
 .. admonition:: Description
 

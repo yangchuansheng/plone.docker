@@ -9,9 +9,10 @@ There are two ways to use this image out-of-the-box:
 
 Standalone
 ----------
-::
 
-  $ docker run -p 8080:8080 plone
+.. code-block:: shell
+
+    docker run -p 8080:8080 plone
 
 Now, ask for http://localhost:8080/ in your workstation web browser,
 and add a Plone site.
@@ -19,97 +20,70 @@ and add a Plone site.
 ZEO Cluster
 -----------
 
-Start `ZEO` server::
+Start `ZEO` server
 
-  $ docker run --name=zeo plone zeoserver
+.. code-block:: shell
 
-Start 2 Plone clients::
+    docker run --name=zeo plone zeoserver
 
-  $ docker run --link=zeo -e ZEO_ADDRESS=zeo:8100 -p 8081:8080 plone
-  $ docker run --link=zeo -e ZEO_ADDRESS=zeo:8100 -p 8082:8080 plone
+Start 2 Plone clients
 
-Now, open http://localhost:8080/ in your workstation web browser. If you
-already have a Plone site within ZEO database, click on `View your Plone site`,
+.. code-block:: shell
+
+    docker run --link=zeo -e ZEO_ADDRESS=zeo:8100 -p 8081:8080 plone
+    docker run --link=zeo -e ZEO_ADDRESS=zeo:8100 -p 8082:8080 plone
+
+Now, open http://localhost:8080/ in your browser.
+
+If you already have a Plone site within ZEO database, click on `View your Plone site`,
 otherwise add a new one.
-
-Scaling
--------
-
-In order to scale up and down the number of ZEO clients you'll need
-orchestration tools like `docker-compose <https://docs.docker.com/compose/install/>`_
-
-Bellow is a `docker-compose.yml` example with ZEO server and Plone
-instance configured as a ZEO client::
-
-  haproxy:
-    image: eeacms/haproxy
-    ports:
-    - 8080:5000
-    - 1936:1936
-    links:
-    - plone
-    environment:
-    - BACKENDS_PORT=8080
-    - SERVICE_NAMES=plone
-
-  plone:
-    image: plone
-    links:
-    - zeoserver
-    environment:
-    - ZEO_ADDRESS=zeoserver:8100
-
-  zeoserver:
-    image: plone
-    command: zeoserver
-
-Start cluster::
-
-  $ docker-compose up -d
-
-Scale the number of ZEO clients::
-
-  $ docker-compose scale plone=4
-
-Now, open http://localhost:8080 in your workstation web browser. To see the
-HAProxy backend health, go to http://localhost:1936 Default user: `admin/admin`
 
 Debug Mode
 ----------
 
-You can also start Plone in debug mode (fg) by running::
+You can also start Plone in debug mode (fg) by running
 
-    $ docker run -p 8080:8080 plone fg
+.. code-block:: shell
+
+    docker run -p 8080:8080 plone fg
 
 Still, this will not allow you to add `pdb` breakpoints. For this, you'll have
-to run Plone inside container like::
+to run Plone inside container like
 
-    $ docker run -it -p 8080:8080 plone bash
-      $ bin/instance fg
+.. code-block:: shell
+
+    docker run -it -p 8080:8080 plone bash
+    bin/instance fg
 
 Add-ons
 -------
 You can easily test new or existing Plone add-ons by passing them via `PLONE_ADDONS`
-environment variable::
+environment variable
 
-    $ docker run -p 8080:8080 -e PLONE_ADDONS="Products.PloneFormGen eea.facetednavigation" plone fg
+.. code-block:: shell
+
+    docker run -p 8080:8080 -e PLONE_ADDONS="Products.PloneFormGen eea.facetednavigation" plone fg
 
 The same way as above you can pass `PLONE_ZCML` environment variable to include
 custom ZCML files or `PLONE_DEVELOP` environment variable to develop new or
-existing Plone add-ons::
+existing Plone add-ons
 
-    $ docker run -p 8080:8080 \
+.. code-block:: shell
+
+    docker run -p 8080:8080 \
                  -e PLONE_ADDONS="plone.theme.winter" \
                  -e PLONE_DEVELOP="src/plone.theme.winter" \
                  -v $(pwd)/src:/plone/instance/src \
-             plone fg
+                 plone fg
 
 Make sure that you have your Plone add-on code at `src/plone.theme.winter` and
 that Plone user inside Docker container (`uid: 500`) has the rights to read/write there.
 
-Running unit tests::
+Running unit tests
 
-    $ docker run --rm -e PLONE_ADDONS="eea.facetednavigation" \
+.. code-block:: shell
+
+    docker run --rm -e PLONE_ADDONS="eea.facetednavigation" \
              plone \
              bin/test -v -vv -s eea.facetednavigation
 
@@ -131,28 +105,34 @@ which is the Docker recipe for your image
 
 site.cfg
 ~~~~~~~~
-::
 
-  [buildout]
-  extends = buildout.cfg
-  eggs += plone.awsome.addon
+.. code-block:: cfg
+
+    [buildout]
+    extends = buildout.cfg
+    eggs += plone.awsome.addon
 
 Dockerfile
 ~~~~~~~~~~
-::
 
-  FROM plone:5
+.. code-block:: dockerfile
 
-  COPY site.cfg /plone/instance/
-  RUN bin/buildout -c site.cfg
+    FROM plone:5
 
-Build your custom Plone image::
+    COPY site.cfg /plone/instance/
+    RUN bin/buildout -c site.cfg
 
-  $ docker build -t custom-plone-image .
+Build your custom Plone image
 
-Run it::
+.. code-block:: shell
 
-  $ docker run -p 8080:8080 custom-plone-image
+    docker build -t custom-plone-image .
+
+Run it
+
+.. code-block:: shell
+
+    docker run -p 8080:8080 custom-plone-image
 
 Test it at http://localhost:8080
 
@@ -200,16 +180,20 @@ without having to prepare hosts in advance or care about read/write permission
 or SELinux `(Security-Enhanced Linux) <https://en.wikipedia.org/wiki/Security-Enhanced_Linux>`_ policy rules. The downside is that the files may be hard to locate
 for tools and applications that run directly on the host system, i.e. outside containers.
 
-* Use data volumes with Plone::
+* Use data volumes with Plone
 
-    $ docker run --name plone \
+.. code-block:: shell
+
+    docker run --name plone \
                  --volume=plone-data:/data \
                  -p 8080:8080 \
-             plone
+                 plone
 
 Or with `Docker Compose <https://docs.docker.com/compose/>`_
 
-* Add docker-compose.yml file::
+* Add docker-compose.yml file
+
+.. code-block:: yaml
 
     plone:
       image: plone
@@ -218,9 +202,11 @@ Or with `Docker Compose <https://docs.docker.com/compose/>`_
       ports:
       - "8080:8080"
 
-* Start Plone stack::
+* Start Plone stack
 
-    $ docker-compose up
+.. code-block:: shell
+
+    docker-compose up
 
 
 Mount host directories as data volumes (suitable for development use)
@@ -235,20 +221,26 @@ and that e.g. directory permissions and other security mechanisms
 on the host system are set up correctly.
 
 * Create data directories on a suitable volume on your host system, e.g. `/var/local/data/filestorage` and `/var/local/data/blobstorage`
-* Start your `plone` container like this::
+* Start your `plone` container like this
 
-    $ docker run -v /var/local/data/filestorage:/data/filestorage -v /var/local/data/blobstorage:/data/blobstorage -d plone
+.. code-block:: shell
+
+    docker run -v /var/local/data/filestorage:/data/filestorage -v /var/local/data/blobstorage:/data/blobstorage -d plone
 
 The -v /path/to/filestorage:/data/filestorage part of the command mounts the -v /path/to/filestorage directory from the underlying host system as /data/filestorage inside the container, where Plone will look for/create the Data.fs database file.
 
 The -v /path/to/blobstorage:/data/blobstorage part of the command mounts the -v /path/to/blobstorage directory from the underlying host system as /data/blobstorage where blobs will be stored.
 
-Make sure that Plone has access to read/write within these folders::
+Make sure that Plone has access to read/write within these folders
 
-    $ chown -R 500:500 /var/local/data
+.. code-block:: shell
+
+    chown -R 500:500 /var/local/data
 
 Note that users on host systems with SELinux enabled may see issues with this.
 The current workaround is to assign the relevant SELinux policy type to the
-new data directory so that the container will be allowed to access it::
+new data directory so that the container will be allowed to access it
 
-    $ chcon -Rt svirt_sandbox_file_t /var/local/data
+.. code-block:: shell
+
+    chcon -Rt svirt_sandbox_file_t /var/local/data
