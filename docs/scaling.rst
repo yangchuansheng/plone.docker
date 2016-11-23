@@ -41,5 +41,6 @@ Scale the number of ZEO clients::
 
   $ docker-compose scale plone=4
 
-Now, open http://localhost:8080 in your workstation web browser. To see the
-HAProxy backend health, go to http://localhost:1936 Default user: `admin/admin`
+Open http://localhost:8080 in your browser.
+
+To see the HAProxy backend health, go to http://localhost:1936 Default user: `admin/admin`

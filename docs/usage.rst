@@ -57,7 +57,7 @@ to run Plone inside container like
     docker run -it -p 8080:8080 plone bash
     bin/instance fg
 
-Add-ons
+Add-Ons
 -------
 You can easily test new or existing Plone add-ons by passing them via ``PLONE_ADDONS``
 :ref:`anchor_environment_variables`.
